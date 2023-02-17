@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}  <!--meta-->
+{% endblock %}
+{% block title %}   <!--title-->
+Search
+{% endblock %}
+{% block content %}    <!--body-->
+<div>
+    <p class="text-center my_search_text"> you have searched for<b>"{{queryy}}"</b></p>
+</div>
+<div class="container">
+    <div class="row mx_auto">
+        {% for i in prdct %}
+        <!-- 'prdct' is key in 'SearchResult' function in 'search_app/view ' and 'i' is itratable  variable -->
+        <div class="my_bottom_margin col-9 col-sm-12 col-md-4  col-lg-4">
+            <div class="card text-center" style="min-width:18rem;">
+                <a href="{{i.get_url}}"><img alt="{{i.name}}" class="card-img-top " height="310px" src="{{i.img.url}}"   width="280px"> </a>
+                <div class="card-body">
+                    <h4>{{i.name}}</h4>
+                    <p>₹ {{i.price}}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="row mx-auto">
+            <p class="text-center my_search_text"> zero results found</p>
+        </div>
+        {% endfor %}</div></div>
+{% endblock %}

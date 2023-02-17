@@ -1,0 +1,46 @@
+<!--google serarch -bootstarp-navbar-->
+
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+
+        <button aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                class="navbar-toggler"
+                data-bs-target="#navbarSupportedContent" data-bs-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <li class="nav-item " >
+                    <a class="nav-link" href="{% url 'shop:AllProdCat' %}">Home</a>
+                </li>
+
+                <li class="nav-item dropdown  {% if 'shop' in request.path %} active {% endif %}">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                       role="button">
+                        Shop
+                    </a>
+                    <ul aria-labelledby="navbarDropdown" class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'shop:AllProdCat' %}">All products</a></li>
+                        {% for cat in links %}
+                        <li><a class="dropdown-item" href="{{cat.get_url}}">{{cat.name}}</a></li>
+                        {% endfor %}
+
+                    </ul>
+                </li>
+
+                 {% if item_count > 0 %}
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="{% url 'cart:cart_detail' %}"><i class="fa fa-shopping-cart my_cart"></i> ({{item_count}})</a>
+                </li>
+                {% endif %}
+            </ul>
+            <form class="d-flex" role="search"  style="padding-left:50%" method="get" action="{% url 'search_app:SearchResult' %}" >
+                {% csrf_token %}
+                <input aria-label="Search" class="form-control me-2" placeholder="Search" type="search"               name="q">
+                <button class="btn btn-outline-dark" type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+</nav>
+

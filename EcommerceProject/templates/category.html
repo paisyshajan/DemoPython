@@ -1,0 +1,89 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+<!--meta-->
+{% block metadescription %}
+    {% if catpage %}
+         {{catpage.desc|truncatewords:500}}
+     {% else %}
+          welcome to ALL IN ONE STORE.....here u can buy anything..........
+     {% endif %}
+{% endblock %}
+
+
+<!--title-->
+{% block title %}
+     {% if catpage %}
+         {{catpage.name}}------ALL IN ONE STORE
+     {% else %}
+          shop now............
+     {% endif %}
+{% endblock %}
+
+<!---->
+
+{% block content %}
+   {% if catpage %}
+      <div>
+         <div class="row my_row_class">
+             <div class="mx_auto">
+            <p><a href="{% url 'shop:AllProdCat' %}"> product collection</a></p>
+                 <h3 class="text-center my_titlee">{{catpage.name}}</h3>
+
+         </div>
+      </div>
+          </div>
+   {% endif %}
+
+   {% if catpage %}
+       <div>
+          <img class="my_image" src="{{catpage.img.url}}" alt="{{catpage.name}}" >
+       </div><br>
+        <div>
+            <h1 class="text-center my_titlee">{{catpage.name}}</h1>              <!--   catpage is key-->
+            <p class="text-justify">{{catpage.desc}}</p>
+        </div>
+   {% else %}
+            <div>
+               <img src="{% static 'image/banner2.png' %}" alt="bannerimage" width="100%" height="450px">
+            </div><br>
+            <div>
+                <h2 class="text-center my_title_2"><b>OUR PRODUCTS</b></h2>
+             <p class="text-justify">nbbSuspendisse quam purus, bibendum a sem a, facilisis feugiat libero. Nullam finibus accumsan pulvinar. Nulla non ultrices sem,
+               id egestas lectus. Vivamus nibh lorem, porta quis leo vel, tincidunt ultrices ligula. Vivamus ut ipsum velit. Donec odio purus, sodales
+               in mattis in, pellentesque eget nulla. Fusce efficitur
+               finibus nulla, nec pharetra enim fermentum non. Donec ipsum metus, blandit et mi non, bibendum efficitur sem.</p>
+            </div>
+   {% endif %}
+    <div class="container" >
+        <div class="row mx_auto">
+            {% for i in products.object_list %}     <!-- 'products' is key in 'AllProdCat' function  and 'i' is itratable  variable -->
+            <div class="my_bottom_margin col-9 col-sm-12 col-md-4  col-lg-4">
+                <div class="card text-center" style="min-width:18rem;">
+
+                    <a href="{{i.get_url}}"><img class="card-img-top " src="{{i.img.url}}" alt="{{i.name}}" width="280px" height="310px"> </a>
+                <div class="card-body">
+                  <h4>{{i.name}}</h4>
+                  <p>₹ {{i.price}}</p>
+                    </div>
+
+               </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="mx-auto">
+            {% if products.paginator.num_pages > 1 %}
+            <hr>
+            <div class="text-center">
+
+                {% for pg in products.paginator.page_range %}
+                <a href="?page={{pg}}" class="btn btn-light btn-sm {% if products.number == pg %} active{% endif %}">{{pg}}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+        </div>
+        <br>
+    </div>
+{% endblock %}
