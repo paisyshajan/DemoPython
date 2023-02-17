@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block body %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6" style="padding:2%">
+            <img height="300" src="{{movy.img.url}}" width="380">
+        </div>
+
+        <div class="col-md-6" style="padding:2%">
+
+            <h3>{{movy.name}}</h3>
+            <h5 style="text-align:justify"> {{movy.desc}}</h5>
+            <h6>{{movy.year}}</h6>
+
+            <a class="btn btn-warning" href="{% url 'movieapp:update' movy.id %}"> update</a>
+            <a class="btn btn-danger" href="{% url 'movieapp:delete' movy.id %}">Delete</a>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

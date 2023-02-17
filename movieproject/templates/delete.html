@@ -1,0 +1,15 @@
+
+
+{% extends 'base.html' %}
+{% block body %}
+<div class="container" style="padding:20%">
+<form method="post">
+  {% csrf_token %}
+
+  are you sure  want to delete this movie ?
+
+  <input type="submit" value="yes">
+
+</form>
+</div>
+{% endblock %}

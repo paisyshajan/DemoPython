@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<img src="{{movy.img.url}}" height="150" width="150"><br>
+{{movy.name}}<br>
+{{movy.desc}}<br>
+{{movy.year}}<br>
+<a class="btn btn-warning" href="{% url 'movieapp:update' movy.id %}" > update</a>
+<a class="btn btn-danger" href="{% url 'movieapp:delete' movy.id %}">Delete</a>
+{% endblock %}
